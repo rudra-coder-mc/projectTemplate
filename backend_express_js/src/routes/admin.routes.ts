@@ -21,7 +21,7 @@ router.post(
 // Route to fetch all admins and super-admins
 // This route is protected and only accessible to super-admins
 router.get(
-  '/',                                                                    
+  '/',
   verifyJWT,
   verifyRole(['super-admin']) as RequestHandler,
   getAllAdminsAndSuperAdmins

@@ -3,8 +3,10 @@ import { User } from '../models/user.models';
 import { ApiError } from './ApiError';
 
 // Utility function for token generation
-export const generateTokens = async (userId: mongoose.Types.ObjectId) => {
-  const user = await User.findById(userId);
+export const generateTokens = async (userId: {
+  _id: mongoose.Types.ObjectId | string;
+}) => {
+  const user = await User.findById(userId._id);
   if (!user)
     throw new ApiError(400, 'User does not exist while creating token');
 

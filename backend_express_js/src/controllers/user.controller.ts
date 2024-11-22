@@ -9,7 +9,7 @@ import {
   validateUserInput,
 } from '../utils/validation';
 import jwt from 'jsonwebtoken';
-import mongoose, { ObjectId } from 'mongoose';
+import { ObjectId } from 'mongoose';
 import { generateTokens } from '../utils/geretateTken';
 import { CustomUser } from 'src/types/user.types';
 

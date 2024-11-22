@@ -1,14 +1,14 @@
-import { Request, Response, NextFunction } from 'express';
-import { CustomUser, User } from 'src/types/user.types';
+import { Response, NextFunction } from 'express';
+import { CustomUser } from 'src/types/user.types';
 import { ApiError } from 'src/utils/ApiError';
 
 /**
  * Middleware to verify if the authenticated user has one of the specified roles.
- * 
+ *
  * @param {string[]} roles - An array of allowed roles that can access the route.
  * @returns {Function} A middleware function that checks the user's role.
- * 
- * @throws {ApiError} If the user is not authenticated (HTTP 401) or if the user 
+ *
+ * @throws {ApiError} If the user is not authenticated (HTTP 401) or if the user
  *                    does not have one of the allowed roles (HTTP 403).
  */
 export const verifyRole = (roles: string[]) => {

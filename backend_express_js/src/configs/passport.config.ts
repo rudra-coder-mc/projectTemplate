@@ -52,7 +52,7 @@ passport.use(
 passport.serializeUser((user, done) => {
   console.log('serializeUser', user);
 
-  done(null, (user as any)._id);
+  done(null, (user as { _id: string })._id);
 });
 
 passport.deserializeUser(async (id, done) => {

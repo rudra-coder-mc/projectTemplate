@@ -1,4 +1,3 @@
-
 import { ApiError } from './ApiError';
 
 export const isValidEmail = (email: string): boolean => {

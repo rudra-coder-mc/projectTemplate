@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Request, Router } from 'express';
 import {
   changePassword,
   getCurrentUser,
@@ -13,7 +13,7 @@ import passport from 'passport';
 
 import { ApiError } from '../utils/ApiError';
 import { generateTokens } from 'src/utils/geretateTken';
-import mongoose from 'mongoose';
+import { CustomUser } from 'src/types/user.types';
 
 const router = Router();
 
@@ -30,16 +30,15 @@ router.get(
 router.get(
   '/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
-  async (req: any, res, next) => {
+  async (req: Request, res, next) => {
+    const customReq = req as CustomUser;
     try {
       // Check if the user is authenticated
-      if (!req.user) {
+      if (!customReq.user) {
         throw new ApiError(401, 'Google authentication failed');
       }
 
-      // Generate access and refresh tokens for the authenticated user
-      const userId = req.user._id as mongoose.Types.ObjectId;
-      const { accessToken, refreshToken } = await generateTokens(userId);
+      const { accessToken } = await generateTokens({ _id: customReq.user._id });
 
       // Set tokens as HTTP-only cookies
       res.cookie('accessToken', accessToken, { httpOnly: true, secure: true });
